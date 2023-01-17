@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ItNihongo3Rails20194591</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="ja">
+<head>
+  <title>Ruby</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body style="display: flex;flex-direction: column;min-height: 100vh">
+<header style="display:flex;flex-direction: row;align-items: center;background-color: #2E2F30;padding-inline: 40px;padding-block: 12px;color: white">
+  <a href="/" style="padding-inline: 16px;padding-block: 12px;">ホーム</a>
+  <span style="flex: 1"></span>
+  <% if user_signed_in? %>
+    <%= button_to "サインアウト", destroy_user_session_path, method: :delete, :style => 'margin-left: 16px;padding-inline: 16px;padding-block: 12px;background-color: #FF6347;border-radius: 12px;cursor: pointer' %>
+  <% else %>
+    <a href="/users/sign_in">サインイン</a>
+    <a href="/users/sign_up" style="margin-left: 16px;padding-inline: 16px;padding-block: 12px;background-color: #1E90FF;border-radius: 12px;">ユーザ登録</a>
+  <% end %>
+</header>
+<div style="flex: 1">
+  <%= yield %>
+</div>
+</body>
 </html>
