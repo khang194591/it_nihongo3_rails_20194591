@@ -4,10 +4,12 @@ class BooksController < ApplicationController
   # GET /books or /books.json
   def index
     @books = Book.all
+    @reviews = BookReview.where(book_id: params[:id])
   end
 
   # GET /books/1 or /books/1.json
-  def show
+  def show()
+    @reviews = BookReview.where(book_id: params[:id])
   end
 
   # GET /books/new
