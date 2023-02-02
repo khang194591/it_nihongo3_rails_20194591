@@ -4,7 +4,60 @@
 
 <div id="books">
   <% @books.each do |book| %>
-    <%= render book %>
+    <% @reviews = BookReview.where(book_id: book[:id]) %>
+    <% book_review = BookReview.new %>
+    <div id="<%= dom_id book %>">
+      <p>
+        <strong>Title:</strong>
+        <%= book.title %>
+      </p>
+
+      <p>
+        <strong>Number of pages:</strong>
+        <%= book.number_of_pages %>
+      </p>
+
+      <p>
+        <strong>Detail:</strong>
+        <%= book.detail %>
+      </p>
+
+      <!--  <p>-->
+      <!--    <strong>Image:</strong>-->
+      <%#= image_tag(book.image, style: 'width:200px;height:150px') %>
+      <!--  </p>-->
+
+      <%= form_with model: book_review, url: "/book_reviews", method: :post do |form| %>
+        <div>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+        </div>
+
+        <div>
+          <%= form.hidden_field :book_id, value: book.id %>
+        </div>
+
+        <div>
+          <%= form.label :review, style: "display: block" %>
+          <%= form.text_area :review %>
+        </div>
+
+        <div>
+          <%= form.submit %>
+        </div>
+      <% end %>
+      <p>Review list</p>
+      <% if @reviews != nil %>
+        <ul style="list-style-type:circle">
+          <% @reviews.each do |review| %>
+            <li style="margin-left: 8px">
+              ・ <%= review.review %> (<i><%= review.user_id %></i>)
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+    </div>
+
     <p>
       <%= link_to "Show this book", book %>
     </p>
