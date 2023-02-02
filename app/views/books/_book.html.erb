@@ -1,3 +1,4 @@
+<% book_review = BookReview.new %>
 <div id="<%= dom_id book %>">
   <p>
     <strong>Title:</strong>
@@ -8,15 +9,35 @@
     <strong>Number of pages:</strong>
     <%= book.number_of_pages %>
   </p>
-  <strong>Detail:</strong>
-  <%= book.detail %>
-  <p>
-
-  </p>
 
   <p>
-    <strong>Image:</strong>
-    <%= image_tag(book.image, style: 'width:200px;height:150px') %>
+    <strong>Detail:</strong>
+    <%= book.detail %>
   </p>
+
+<!--  <p>-->
+<!--    <strong>Image:</strong>-->
+    <%#= image_tag(book.image, style: 'width:200px;height:150px') %>
+<!--  </p>-->
+
+  <%= form_with model:book_review, url: "/book_reviews", method: :post do |form| %>
+    <div>
+      <%= form.hidden_field :user_id, value:current_user.id %>
+    </div>
+
+    <div>
+      <%= form.hidden_field :book_id, value: book.id %>
+    </div>
+
+    <div>
+      <%= form.label :review, style: "display: block" %>
+      <%= form.text_area :review %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+
 
 </div>
