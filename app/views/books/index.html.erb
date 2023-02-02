@@ -50,7 +50,7 @@
         <ul style="list-style-type:circle">
           <% @reviews.each do |review| %>
             <li style="margin-left: 8px">
-              ・ <%= review.review %> (<i><%= review.user_id %></i>)
+              ・ <%= review.review %> (<i><%= review.user.name %></i>)
             </li>
           <% end %>
         </ul>
